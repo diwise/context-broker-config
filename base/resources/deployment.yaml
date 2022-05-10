@@ -40,4 +40,12 @@ spec:
           httpGet:
             path: /health
             port: default-port
+        volumeMounts:
+          - name: context-broker-cfg
+            mountPath: /opt/diwise/config
+            readOnly: true
       serviceAccountName: context-broker
+      volumes:
+        - name: context-broker-cfg
+          configMap:
+            name: context-broker-config-cm
