@@ -1,3 +1,3 @@
 - op: replace
   path: "/spec/template/spec/containers/0/image"
-  value: ghcr.io/diwise/context-broker@sha256:665862aa9da87dde1243f2293cce826a9fe212ed63bbe22e5ccf02aea9253e2f
+  value: ghcr.io/diwise/context-broker@sha256:13c53d63f13ed73fffca872f47b8b9397bf9683580319b6a48ff2b9ccea95685
