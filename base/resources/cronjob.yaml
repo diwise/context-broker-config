@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: troe-cleaner
+spec:
+  schedule: "0 0 * * *" # run once a day at midnight
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          containers:
+            - env:
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              name: troe-cleaner
+              image: ghcr.io/diwise/context-broker@sha256:16aaf1c4789e6eb1adbb48c4555a9b04f8bd294d01b8d8edcc36eacc4826f41f
+              imagePullPolicy: IfNotPresent
+              command:
+                - /opt/diwise/troe-cleaner
+              args: []
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 250Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
+          restartPolicy: Never
+          serviceAccountName: context-broker
