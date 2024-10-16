@@ -1,13 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-commonLabels:
-  app.kubernetes.io/name: context-broker
+labels:
+  - pairs:
+      app.kubernetes.io/name: context-broker
+    includeSelectors: true
+    includeTemplates: false
 
 resources:
 - ../../base/
 
-patchesJson6902:
+patches:
 - target:
     group: apps
     version: v1
